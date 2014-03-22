@@ -25,8 +25,14 @@ module NewsStore
   
   def self.get(url)
     uri = URI.parse(url)
-    http = Net::HTTP.new(uri.host)
-    JSON.parse(http.get(uri.path).body)
+    req = Net::HTTP::Get.new(uri)
+    res = Net::HTTP.start(uri.hostname, uri.port) { |http|
+      http.request(req)
+    }
+    body = res.body    
+    #http = Net::HTTP.new(uri.host)
+    #body = http.get(uri.path).body
+    JSON.parse(body)
   end
 
 end
