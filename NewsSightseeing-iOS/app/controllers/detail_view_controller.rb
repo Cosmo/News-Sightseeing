@@ -1,33 +1,13 @@
-class MHDAnnotation
-  def initialize(coordinate = nil, title=nil, subtitle=nil)
-    @coordinate ||= coordinate
-    @title = title
-    @subtitle = subtitle
-  end
-  
-  def coordinate
-    @coordinate
-  end
-
-  def title
-    @title
-  end
-
-  def subtitle
-    @subtitle
-  end
-end
-
 class DetailViewController < UIViewController
   attr_accessor :news
-  
-  attr_accessor :closeButton
   
   attr_accessor :scrollView
   attr_accessor :mapView
   attr_accessor :heroView
   attr_accessor :shadowFromTop
+  attr_accessor :shadowFromBottom
   attr_accessor :headlineLabel
+  attr_accessor :bodyLabel
   
   def initWithNews(news)
     self.init
@@ -42,11 +22,12 @@ class DetailViewController < UIViewController
     
     self.view.backgroundColor = UIColor.whiteColor
     
-    # self.automaticallyAdjustsScrollViewInsets = true
+    self.navigationController.navigationBar.setBackgroundImage(UIImage.new, forBarMetrics:UIBarMetricsDefault)
     
-    # doneButton = UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemDone, target:self, action:"hideDetailView:")
-    # self.navigationItem.title               = "News Title ..."
-    # self.navigationItem.rightBarButtonItems = [doneButton]
+    self.automaticallyAdjustsScrollViewInsets = false
+    
+    doneButton = UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemDone, target:self, action:"hideDetailView:")
+    self.navigationItem.rightBarButtonItems = [doneButton]
     
     self.scrollView = UIScrollView.alloc.initWithFrame(CGRectZero).tap do |scroll|
       scroll.contentSize = CGSizeMake(self.view.frame.size.width, 1000)
@@ -65,9 +46,10 @@ class DetailViewController < UIViewController
     end
     
     self.heroView = UIImageView.alloc.initWithFrame(CGRectZero).tap do |imageView|
-      placeholder = UIImage.imageNamed("Dummy-Images/News-Hero-#{rand(5)}.jpg")
-      imageView.url = { url: self.news.imageUrl, placeholder: placeholder }
-      imageView.contentMode = UIViewContentModeScaleAspectFill
+      placeholder = UIImage.imageNamed("NewsPoster.png")
+      imageView.url             = { url: self.news.imageUrl, placeholder: placeholder }
+      imageView.contentMode     = UIViewContentModeScaleAspectFill
+      imageView.clipsToBounds  = true
       self.scrollView.addSubview(imageView)
     end
     
@@ -78,23 +60,39 @@ class DetailViewController < UIViewController
       self.scrollView.addSubview(imageView)
     end
     
+    self.shadowFromBottom = UIImageView.alloc.initWithFrame(CGRectZero).tap do |imageView|
+      imageView.image       = UIImage.imageNamed("News-Shadow-From-Bottom.png")
+      imageView.alpha       = 0.7
+      imageView.contentMode = UIViewContentModeScaleToFill
+      self.scrollView.addSubview(imageView)
+    end
+    
     self.headlineLabel = UILabel.alloc.init.tap do |label|
       label.text                    = self.news.title
       label.textColor               = UIColor.whiteColor
-      label.font                    = UIFont.boldSystemFontOfSize(16)
+      label.font                    = UIFont.boldSystemFontOfSize(26)
       label.userInteractionEnabled  = false
       self.scrollView.addSubview(label)
     end
     
-    self.closeButton = UIButton.alloc.initWithFrame(CGRectZero).tap do |button|
-      button.titleLabel.font = UIFont.systemFontOfSize(16)
-      button.setTitle("Close", forState:UIControlStateNormal)
-      button.addTarget(self, action:"hideDetailView:", forControlEvents:UIControlEventTouchUpInside)
+    self.bodyLabel = UITextView.alloc.init.tap do |label|
       
-      button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight
-      button.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+      options = {
+        NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+        NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding
+      }
       
-      self.view.addSubview(button)
+      bodyString = NSAttributedString.alloc.initWithData(("<html><meta charset='utf-8' />" + self.news.body + "</html>").dataUsingEncoding(NSUTF8StringEncoding), options:options, documentAttributes:nil, error:nil)
+      
+      label.attributedText          = bodyString
+      label.editable                = false
+      label.selectable              = false
+      label.textAlignment           = NSTextAlignmentLeft
+      label.textContainerInset      = UIEdgeInsetsMake(10, 10, 10, 10) # top, left, bottom, right
+      label.textColor               = UIColor.blackColor
+      label.font                    = UIFont.boldSystemFontOfSize(16)
+      label.userInteractionEnabled  = false
+      self.scrollView.addSubview(label)
     end
     
   end
@@ -107,10 +105,11 @@ class DetailViewController < UIViewController
     self.scrollView.frame     = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
     self.heroView.frame       = CGRectMake(0, 0, self.view.frame.size.width, 240)
     self.shadowFromTop.frame  = CGRectMake(0, 0, self.view.frame.size.width, 200)
+    self.shadowFromBottom.frame  = CGRectMake(0, self.heroView.frame.size.height / 2, self.view.frame.size.width, self.heroView.frame.size.height / 2)
     self.mapView.frame        = CGRectMake(0, self.heroView.frame.size.height, self.view.frame.size.width, 140)
     
-    self.headlineLabel.frame  = CGRectMake(20, 30, self.view.frame.size.width, 20)
-    self.closeButton.frame    = CGRectMake(self.view.frame.size.width-20-50, 30, 50, 20)
+    self.headlineLabel.frame  = CGRectMake(20, self.heroView.frame.size.height-40, self.view.frame.size.width-20-20, 30)
+    self.bodyLabel.frame      = CGRectMake(0, self.heroView.frame.size.height+self.mapView.frame.size.height, self.view.frame.size.width, 400)
   end
   
   def hideDetailView(sender)

@@ -4,7 +4,8 @@ class AreaSectionViewCell < UITableViewCell
   attr_accessor :collectionView
   attr_accessor :data
   
-  attr_accessor :sectionLabel
+  # attr_accessor :shadowFromLeft
+  # attr_accessor :sectionLabel
   
   def initWithStyle(style, reuseIdentifier:reuseIdentifier)
     super
@@ -13,7 +14,7 @@ class AreaSectionViewCell < UITableViewCell
     
     layout = UICollectionViewFlowLayout.alloc.init
     layout.scrollDirection          = UICollectionViewScrollDirectionHorizontal
-    layout.sectionInset             = UIEdgeInsetsMake(10, 10, 0, 0) # top, left, bottom, right
+    layout.sectionInset             = UIEdgeInsetsMake(10, 10, 10, 10) # top, left, bottom, right
     layout.minimumInteritemSpacing  = 0.0
     layout.minimumLineSpacing       = 10.0
     
@@ -26,12 +27,27 @@ class AreaSectionViewCell < UITableViewCell
       self.addSubview(collection)
     end
     
-    self.sectionLabel = UILabel.alloc.init.tap do |label|
-      label.textColor               = UIColor.whiteColor
-      label.font                    = UIFont.boldSystemFontOfSize(30)
-      label.userInteractionEnabled  = false
-      self.addSubview(label)
-    end
+    # self.shadowFromLeft = UIImageView.alloc.initWithFrame(CGRectZero).tap do |imageView|
+    #   imageView.image       = UIImage.imageNamed("News-Shadow-From-Left.png")
+    #   imageView.alpha       = 0.5
+    #   imageView.contentMode = UIViewContentModeScaleToFill
+    #   self.addSubview(imageView)
+    # end
+    
+    # self.sectionLabel = UITextView.alloc.init.tap do |label|
+    #   label.editable                = false
+    #   label.selectable              = false
+    #   label.textAlignment           = NSTextAlignmentRight
+    #   label.textContainerInset      = UIEdgeInsetsMake(10, 0, 0, 10) # top, left, bottom, right
+    #   label.textColor               = UIColor.whiteColor
+    #   label.backgroundColor         = UIColor.blackColor
+    #   label.font                    = UIFont.boldSystemFontOfSize(16)
+    #   label.alpha                   = 0.8
+    #   label.userInteractionEnabled  = false
+    #   label.layer.cornerRadius      = 6
+    #   label.layer.masksToBounds     = true
+    #   self.addSubview(label)
+    # end
     
     self
   end
@@ -39,12 +55,13 @@ class AreaSectionViewCell < UITableViewCell
   def layoutSubviews
     super
     
-    self.sectionLabel.frame   = CGRectMake(30, self.frame.size.height-60, self.frame.size.width, 60)
+    # self.shadowFromLeft.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
+    # self.sectionLabel.frame   = CGRectMake(-10, self.frame.size.height-50, 170, 40)
     self.collectionView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
   end
   
   def collectionView(collectionView, layout:collectionViewLayout, sizeForItemAtIndexPath:indexPath)
-    CGSizeMake(self.size, self.frame.size.height-5-5)
+    CGSizeMake(self.size, self.frame.size.height-10-10)
   end
   
   def numberOfSectionsInCollectionView(collectionView)
@@ -59,15 +76,14 @@ class AreaSectionViewCell < UITableViewCell
     cell = collectionView.dequeueReusableCellWithReuseIdentifier("NewsViewCell", forIndexPath:indexPath)
     cell.headlineLabel.text = self.data[indexPath.row].title
     
-    placeholder = UIImage.imageNamed("Dummy-Images/News-Hero-#{rand(5)}.jpg")
+    placeholder = UIImage.imageNamed("NewsPoster.png")
     cell.heroView.url = { url: self.data[indexPath.row].imageUrl, placeholder: placeholder }
     
     cell
   end
   
   def collectionView(collectionView, didSelectItemAtIndexPath:indexPath)
-    # viewController = UINavigationController.alloc.initWithRootViewController(DetailViewController.alloc.init)
-    viewController = DetailViewController.alloc.initWithNews(self.data[indexPath.row])
+    viewController = MHDNavigationController.alloc.initWithRootViewController(DetailViewController.alloc.initWithNews(self.data[indexPath.row]))
     self.navigationController.presentViewController(viewController, animated:true, completion:lambda { })
   end
 end
