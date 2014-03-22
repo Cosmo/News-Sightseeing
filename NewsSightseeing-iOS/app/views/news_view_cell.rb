@@ -8,9 +8,13 @@ class NewsViewCell < UICollectionViewCell
     super
     
     self.backgroundView = UIView.alloc.initWithFrame(CGRectZero).tap do |background|
-      background.clipsToBounds       = true
+      # background.clipsToBounds       = true
       background.layer.cornerRadius  = 6
       background.layer.masksToBounds = true
+      
+      background.layer.borderColor = UIColor.colorWithWhite(1.0, alpha:0.3).CGColor
+      background.layer.borderWidth = 1.0
+      
       self.addSubview(background)
     end
     
@@ -19,9 +23,10 @@ class NewsViewCell < UICollectionViewCell
       self.backgroundView.addSubview(imageView)
     end
     
+    
     self.shadowFromTop = UIImageView.alloc.initWithFrame(CGRectZero).tap do |imageView|
       imageView.image       = UIImage.imageNamed("News-Shadow-From-Top.png")
-      imageView.alpha       = 0.5
+      imageView.alpha       = 0.7
       imageView.contentMode = UIViewContentModeScaleToFill
       self.backgroundView.addSubview(imageView)
     end
@@ -29,6 +34,7 @@ class NewsViewCell < UICollectionViewCell
     self.headlineLabel = UILabel.alloc.init.tap do |label|
       label.textColor               = UIColor.whiteColor
       label.font                    = UIFont.boldSystemFontOfSize(16)
+      label.numberOfLines           = 2
       label.userInteractionEnabled  = false
       self.addSubview(label)
     end
@@ -40,6 +46,6 @@ class NewsViewCell < UICollectionViewCell
     self.backgroundView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
     self.heroView.frame       = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
     self.shadowFromTop.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height/2)
-    self.headlineLabel.frame  = CGRectMake(10, 10, self.frame.size.width-20-20, 20)
+    self.headlineLabel.frame  = CGRectMake(10, 10, self.frame.size.width-20-20, 40)
   end
 end

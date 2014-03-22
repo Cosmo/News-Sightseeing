@@ -20,6 +20,7 @@ class AreaSectionViewCell < UITableViewCell
     
     
     self.collectionView = UICollectionView.alloc.initWithFrame(CGRectZero, collectionViewLayout:layout).tap do |collection|
+      collection.backgroundColor = UIColor.clearColor
       collection.registerClass(NewsViewCell, forCellWithReuseIdentifier:"NewsViewCell")
       collection.delegate   = self
       collection.dataSource = self

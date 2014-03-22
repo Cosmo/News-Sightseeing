@@ -4,7 +4,7 @@ class MainViewController < UITableViewController
   def viewDidLoad
     super
     
-    self.view.backgroundColor       = UIColor.blackColor
+    self.view.backgroundColor       = UIColor.colorWithWhite(0.1, alpha:1.0)
     
     self.tableView.delegate         = self
     self.tableView.dataSource       = self
@@ -27,49 +27,17 @@ class MainViewController < UITableViewController
   
   def loadData
     
-    BW::HTTP.get("http://newssightseeing.cloudapp.net/api/discover/?lng=13.38289&lat=52.5201122&distance=3") do |response|
-      json = BW::JSON.parse(response.body.to_str)
-      
-      # REFACTOR ME!!11 - please :(
-      
-      hereData = []
-      json['here'].each do |news|
-        hereData << News.new(:url => news["url"], :lat => news["location"][1], :lng => news["location"][0], :title => news["title"], :body => news["body"], :imageUrl => news["imageUrl"])
+    BW::HTTP.get("http://newssightseeing.cloudapp.net/api/discover/?lng=13.466630&lat=52.499850") do |response|
+      json      = BW::JSON.parse(response.body.to_str)
+      self.data = []
+      sections  = { here: "Here", veryClose: "Close", aroundYou: "Around you", thisCity: "In this city" }
+      sections.each do |key, value|
+        data = []
+        json[key.to_s].each do |news|
+          data << News.new(:url => news["url"], :lat => news["location"][1], :lng => news["location"][0], :title => news["title"], :body => news["body"], :imageUrl => news["imageUrl"])
+        end
+        self.data << { section: value, data: data }
       end
-      
-      veryCloseData = []
-      json['veryClose'].each do |news|
-        veryCloseData << News.new(:url => news["url"], :lat => news["location"][1], :lng => news["location"][0], :title => news["title"], :body => news["body"], :imageUrl => news["imageUrl"])
-      end
-      
-      aroundYouData = []
-      json['aroundYou'].each do |news|
-        aroundYouData << News.new(:url => news["url"], :lat => news["location"][1], :lng => news["location"][0], :title => news["title"], :body => news["body"], :imageUrl => news["imageUrl"])
-      end
-      
-      thisCityData = []
-      json['thisCity'].each do |news|
-        thisCityData << News.new(:url => news["url"], :lat => news["location"][1], :lng => news["location"][0], :title => news["title"], :body => news["body"], :imageUrl => news["imageUrl"])
-      end
-      
-      self.data = [
-        {
-          section: "Here",
-          data: hereData
-        },
-        {
-          section: "Very close",
-          data: veryCloseData
-        },
-        {
-          section: "Around you",
-          data: aroundYouData
-        },
-        {
-          section: "In this city",
-          data: thisCityData
-        }
-      ]
       
       self.tableView.reloadData
     end
@@ -91,7 +59,7 @@ class MainViewController < UITableViewController
     cell.navigationController = self.navigationController
     cell.data = self.data[indexPath.section][:data]
     
-    cell.size = case indexPath.section
+    cell.size = (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad ? 2 : 1) * case indexPath.section
     when 0
       230
     when 1
@@ -112,7 +80,7 @@ class MainViewController < UITableViewController
   end
   
   def tableView(tableView, heightForRowAtIndexPath:indexPath)
-    case indexPath.section
+    (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad ? 2 : 1) * case indexPath.section
     when 0
       220
     when 1
@@ -129,16 +97,16 @@ class MainViewController < UITableViewController
   end
   
   def tableView(tableView, heightForHeaderInSection:section)
-    34
+    50
   end
   
   def tableView(tableView, viewForHeaderInSection:section)
     UIView.alloc.init.tap do |header|
-      header.backgroundColor = UIColor.colorWithRed(255/255.0, green:203/255.0, blue:0/255.0, alpha:1.0)
-      UILabel.alloc.initWithFrame(CGRectMake(10, 0, self.view.frame.size.width, 34)).tap do |label|
+      # header.backgroundColor = UIColor.blackColor
+      UILabel.alloc.initWithFrame(CGRectMake(20, 10, self.view.frame.size.width, 40)).tap do |label|
         label.text                    = self.data[section][:section].upcase
-        label.textColor               = UIColor.blackColor
-        label.font                    = UIFont.systemFontOfSize(16)
+        label.textColor               = UIColor.colorWithRed(255/255.0, green:203/255.0, blue:0/255.0, alpha:1.0)
+        label.font                    = UIFont.boldSystemFontOfSize(30)
         label.userInteractionEnabled  = false
         header.addSubview(label)
       end
