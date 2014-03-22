@@ -13,4 +13,8 @@ Motion::Project::App.setup do |app|
   app.name = 'NewsSightseeing-iOS'
   
   app.device_family = [:iphone, :ipad]
+  app.frameworks << "MapKit"
+  
+  app.info_plist["UIViewControllerBasedStatusBarAppearance"] = false
+  app.info_plist["UIStatusBarStyle"] = "UIStatusBarStyleBlackOpaque"
 end

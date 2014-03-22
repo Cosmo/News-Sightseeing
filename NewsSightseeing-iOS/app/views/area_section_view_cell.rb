@@ -58,9 +58,16 @@ class AreaSectionViewCell < UITableViewCell
   def collectionView(collectionView, cellForItemAtIndexPath:indexPath)
     cell = collectionView.dequeueReusableCellWithReuseIdentifier("NewsViewCell", forIndexPath:indexPath)
     cell.headlineLabel.text = self.data[indexPath.row].title
+    
+    placeholder = UIImage.imageNamed("Dummy-Images/News-Hero-#{rand(5)}.jpg")
+    cell.heroView.url = { url: self.data[indexPath.row].imageUrl, placeholder: placeholder }
+    
     cell
   end
   
   def collectionView(collectionView, didSelectItemAtIndexPath:indexPath)
+    # viewController = UINavigationController.alloc.initWithRootViewController(DetailViewController.alloc.init)
+    viewController = DetailViewController.alloc.initWithNews(self.data[indexPath.row])
+    self.navigationController.presentViewController(viewController, animated:true, completion:lambda { })
   end
 end

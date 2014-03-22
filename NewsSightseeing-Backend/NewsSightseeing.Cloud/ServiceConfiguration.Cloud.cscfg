@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="NewsSightseeing.Cloud" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="3" osVersion="*" schemaVersion="2013-10.2.2">
+  <Role name="NewsSightseeing.Web">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="newssightseeing" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEBuYgI6RpV2aRxp2ZKKCW+wwDQYJKoZIhvcNAQEBBQAEggEApc7anOSFzaU9dJdca4SvsncKPic1tKf+gQRF9w8a1SjpwIvPeYptsTyg7Dy4L49baNzoUrKaHj5gOfT6VB/tv+cvK24JdWPSZWbTAIT0yoFJSfOj0AxU5Y6Db+pxW27N5zqy4Ip3oLRkRLMNWqk8UA71ouHPwqxmncrCauqbUufa89T3Hp0FvaMgHPPDKKv90tx3oO4lMWPzQp8M/4eL8rZ0QZPCpewfzmKNwwK0gqzXSnJMJ2y3it7DIv3O0KBHaFLA0AgfK3R4i7j4UWfK47Tow1+MMHRBszdvlvwIMb68+tG9lDdiexQd1739YzvgzPgkbNfTqXkwG0XHP4uxmjAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECApXkgEIXkzIgBBwnsMrcxe2gSuZSTQ9+NhO" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2099-03-22T23:59:59.0000000+01:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="7174411D3F64208BC7CFEA628C89F1F4847A7755" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+</ServiceConfiguration>
