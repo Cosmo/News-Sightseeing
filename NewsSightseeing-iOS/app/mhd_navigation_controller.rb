@@ -9,6 +9,6 @@ class MHDNavigationController < UINavigationController
     self.navigationBar.barStyle         = UIBarStyleBlack
     self.navigationBar.backgroundColor  = UIColor.clearColor
     
-    self.view.backgroundColor = UIColor.colorWithRed(16/255.0, green:16/255.0, blue:16/255.0, alpha:1.0)
+    # self.view.backgroundColor = UIColor.colorWithRed(16/255.0, green:16/255.0, blue:16/255.0, alpha:1.0)
   end
 end

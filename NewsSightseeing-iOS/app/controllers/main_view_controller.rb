@@ -66,7 +66,7 @@ class MainViewController < UITableViewController
           data: aroundYouData
         },
         {
-          section: "This city",
+          section: "In this city",
           data: thisCityData
         }
       ]
@@ -74,94 +74,24 @@ class MainViewController < UITableViewController
       self.tableView.reloadData
     end
     
-    # self.data = [
-    #   {
-    #     section: "Here",
-    #     data: [
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro")
-    #     ]
-    #   },
-    #   {
-    #     section: "Very close",
-    #     data: [
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro")
-    #     ]
-    #   },
-    #   {
-    #     section: "Around you",
-    #     data: [
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro")
-    #     ]
-    #   },
-    #   {
-    #     section: "This city",
-    #     data: [
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro"),
-    #       News.new(:url => "http://google.com", :lat => "23.99", :lng => "34.8", :title => "I'm awesome.", :body => "period.", :imageUrl => "https://secure.gravatar.com/avatar/53c2fe1e43b6eee5b7d2abc2eb738b1c?s=160&d=retro")
-    #     ]
-    #   }
-    # ]
-    
   end
   
   def numberOfSectionsInTableView(tableView)
-    1
+    self.data.count
   end
   
   def tableView(tableView, numberOfRowsInSection:section)
-    self.data.count
+    1
   end
   
   def tableView(tableView, cellForRowAtIndexPath:indexPath)
     cell = tableView.dequeueReusableCellWithIdentifier("AreaSectionViewCell")
     
-    cell.sectionLabel.text = self.data[indexPath.row][:section]
+    # cell.sectionLabel.text = self.data[indexPath.section][:section].upcase
     cell.navigationController = self.navigationController
-    cell.data = self.data[indexPath.row][:data]
+    cell.data = self.data[indexPath.section][:data]
     
-    cell.size = case indexPath.row
+    cell.size = case indexPath.section
     when 0
       230
     when 1
@@ -182,7 +112,7 @@ class MainViewController < UITableViewController
   end
   
   def tableView(tableView, heightForRowAtIndexPath:indexPath)
-    case indexPath.row
+    case indexPath.section
     when 0
       220
     when 1
@@ -191,6 +121,27 @@ class MainViewController < UITableViewController
       130
     else
       100
+    end
+  end
+  
+  def tableView(tableView, titleForHeaderInSection:section)
+    self.data[section][:section]
+  end
+  
+  def tableView(tableView, heightForHeaderInSection:section)
+    34
+  end
+  
+  def tableView(tableView, viewForHeaderInSection:section)
+    UIView.alloc.init.tap do |header|
+      header.backgroundColor = UIColor.colorWithRed(255/255.0, green:203/255.0, blue:0/255.0, alpha:1.0)
+      UILabel.alloc.initWithFrame(CGRectMake(10, 0, self.view.frame.size.width, 34)).tap do |label|
+        label.text                    = self.data[section][:section].upcase
+        label.textColor               = UIColor.blackColor
+        label.font                    = UIFont.systemFontOfSize(16)
+        label.userInteractionEnabled  = false
+        header.addSubview(label)
+      end
     end
   end
 end
