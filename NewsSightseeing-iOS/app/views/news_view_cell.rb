@@ -9,20 +9,19 @@ class NewsViewCell < UICollectionViewCell
     
     self.backgroundView = UIView.alloc.initWithFrame(CGRectZero).tap do |background|
       background.clipsToBounds       = true
-      background.layer.cornerRadius  = 10
+      background.layer.cornerRadius  = 6
       background.layer.masksToBounds = true
       self.addSubview(background)
     end
     
     self.heroView = UIImageView.alloc.initWithFrame(CGRectZero).tap do |imageView|
-      imageView.image       = UIImage.imageNamed("Dummy-Images/News-Hero-#{rand(5)}.jpg")
       imageView.contentMode = UIViewContentModeScaleAspectFill
       self.backgroundView.addSubview(imageView)
     end
     
     self.shadowFromTop = UIImageView.alloc.initWithFrame(CGRectZero).tap do |imageView|
       imageView.image       = UIImage.imageNamed("News-Shadow-From-Top.png")
-      imageView.alpha       = 0.7
+      imageView.alpha       = 0.5
       imageView.contentMode = UIViewContentModeScaleToFill
       self.backgroundView.addSubview(imageView)
     end
