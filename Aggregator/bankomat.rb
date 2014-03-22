@@ -2,7 +2,7 @@ require './news_store'
 
 data = NewsStore.get("http://interaktiv.morgenpost.de/gesprengte-geldautomaten/data.json")
 data['storymap']['slides'].each { |article| 
-  if article['type'] == nil then
+  if article['type'] == nil and article['media']['url'] != "bilder/kein-foto.png" then
     doc = {
       :_id => 'bankomat_' + article['date'],
       :url => "http://interaktiv.morgenpost.de/gesprengte-geldautomaten/",

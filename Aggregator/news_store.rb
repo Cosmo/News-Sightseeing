@@ -30,8 +30,6 @@ module NewsStore
       http.request(req)
     }
     body = res.body    
-    #http = Net::HTTP.new(uri.host)
-    #body = http.get(uri.path).body
     JSON.parse(body)
   end
 
