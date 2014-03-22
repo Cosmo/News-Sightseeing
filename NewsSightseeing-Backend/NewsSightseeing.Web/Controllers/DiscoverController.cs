@@ -72,13 +72,16 @@ namespace NewsSightseeing.Web.Controllers
             string latString,
             CultureInfo culture)
         {
-            var minDistance = 1.0d;
-            var maxDistance = 3.0d;
+            var innerMaxDistance = 1.0d;
+            var outerMaxDistance = 3.0d;
 
-            var minDistanceString = (minDistance / EarthRadius).ToString(culture.NumberFormat);
-            var maxDistanceString = (minDistance / EarthRadius).ToString(culture.NumberFormat);
+            var innerMaxDistanceString = (innerMaxDistance / EarthRadius).ToString(culture.NumberFormat);
+            var outerMaxDistanceString = (outerMaxDistance / EarthRadius).ToString(culture.NumberFormat);
 
-            var jsonQuery = "{ 'location' : { $geoWithin : { $centerSphere : [ [ " + lngString + " , " + latString + " ] , " + maxDistanceString + " ] } } }";
+            var jsonQuery = "{$and:[ " +
+                "{'location':{$geoWithin:{$centerSphere:[[" + lngString + "," + latString + "]," + outerMaxDistanceString + "]}}}," +
+                "{'location':{$not:{$geoWithin:{$centerSphere:[[" + lngString + "," + latString + "]," + innerMaxDistanceString + "]}}} }," +
+            "]}";
 
             var doc = BsonSerializer.Deserialize<BsonDocument>(jsonQuery);
             var query = new QueryDocument(doc);
@@ -95,13 +98,16 @@ namespace NewsSightseeing.Web.Controllers
             string latString,
             CultureInfo culture)
         {
-            var minDistance = 1.0d;
-            var maxDistance = 3.0d;
+            var innerMaxDistance = 3.0d;
+            var outerMaxDistance = 5.0d;
 
-            var minDistanceString = (minDistance / EarthRadius).ToString(culture.NumberFormat);
-            var maxDistanceString = (minDistance / EarthRadius).ToString(culture.NumberFormat);
+            var innerMaxDistanceString = (innerMaxDistance / EarthRadius).ToString(culture.NumberFormat);
+            var outerMaxDistanceString = (outerMaxDistance / EarthRadius).ToString(culture.NumberFormat);
 
-            var jsonQuery = "{ 'location' : { $geoWithin : { $centerSphere : [ [ " + lngString + " , " + latString + " ] , " + maxDistanceString + " ] } } }";
+            var jsonQuery = "{$and:[ " +
+                "{'location':{$geoWithin:{$centerSphere:[[" + lngString + "," + latString + "]," + outerMaxDistanceString + "]}}}," +
+                "{'location':{$not:{$geoWithin:{$centerSphere:[[" + lngString + "," + latString + "]," + innerMaxDistanceString + "]}}} }," +
+            "]}";
 
             var doc = BsonSerializer.Deserialize<BsonDocument>(jsonQuery);
             var query = new QueryDocument(doc);
@@ -118,13 +124,16 @@ namespace NewsSightseeing.Web.Controllers
             string latString,
             CultureInfo culture)
         {
-            var minDistance = 1.0d;
-            var maxDistance = 3.0d;
+            var innerMaxDistance = 5.0d;
+            var outerMaxDistance = 50.0d;
 
-            var minDistanceString = (minDistance / EarthRadius).ToString(culture.NumberFormat);
-            var maxDistanceString = (minDistance / EarthRadius).ToString(culture.NumberFormat);
+            var innerMaxDistanceString = (innerMaxDistance / EarthRadius).ToString(culture.NumberFormat);
+            var outerMaxDistanceString = (outerMaxDistance / EarthRadius).ToString(culture.NumberFormat);
 
-            var jsonQuery = "{ 'location' : { $geoWithin : { $centerSphere : [ [ " + lngString + " , " + latString + " ] , " + maxDistanceString + " ] } } }";
+            var jsonQuery = "{$and:[ " +
+                "{'location':{$geoWithin:{$centerSphere:[[" + lngString + "," + latString + "]," + outerMaxDistanceString + "]}}}," +
+                "{'location':{$not:{$geoWithin:{$centerSphere:[[" + lngString + "," + latString + "]," + innerMaxDistanceString + "]}}} }," +
+            "]}";
 
             var doc = BsonSerializer.Deserialize<BsonDocument>(jsonQuery);
             var query = new QueryDocument(doc);
