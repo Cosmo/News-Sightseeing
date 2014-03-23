@@ -1,33 +1,13 @@
-class MHDAnnotation
-  def initialize(coordinate = nil, title=nil, subtitle=nil)
-    @coordinate ||= coordinate
-    @title = title
-    @subtitle = subtitle
-  end
-  
-  def coordinate
-    @coordinate
-  end
-
-  def title
-    @title
-  end
-
-  def subtitle
-    @subtitle
-  end
-end
-
 class DetailViewController < UIViewController
   attr_accessor :news
-  
-  attr_accessor :closeButton
   
   attr_accessor :scrollView
   attr_accessor :mapView
   attr_accessor :heroView
   attr_accessor :shadowFromTop
+  attr_accessor :shadowFromBottom
   attr_accessor :headlineLabel
+  attr_accessor :bodyLabel
   
   def initWithNews(news)
     self.init
@@ -40,13 +20,11 @@ class DetailViewController < UIViewController
   def viewDidLoad
     super
     
-    self.view.backgroundColor = UIColor.whiteColor
+    self.view.backgroundColor = UIColor.blackColor
     
-    # self.automaticallyAdjustsScrollViewInsets = true
+    self.navigationController.navigationBar.setBackgroundImage(UIImage.new, forBarMetrics:UIBarMetricsDefault)
     
-    # doneButton = UIBarButtonItem.alloc.initWithBarButtonSystemItem(UIBarButtonSystemItemDone, target:self, action:"hideDetailView:")
-    # self.navigationItem.title               = "News Title ..."
-    # self.navigationItem.rightBarButtonItems = [doneButton]
+    self.automaticallyAdjustsScrollViewInsets = false
     
     self.scrollView = UIScrollView.alloc.initWithFrame(CGRectZero).tap do |scroll|
       scroll.contentSize = CGSizeMake(self.view.frame.size.width, 1000)
@@ -65,9 +43,10 @@ class DetailViewController < UIViewController
     end
     
     self.heroView = UIImageView.alloc.initWithFrame(CGRectZero).tap do |imageView|
-      placeholder = UIImage.imageNamed("Dummy-Images/News-Hero-#{rand(5)}.jpg")
-      imageView.url = { url: self.news.imageUrl, placeholder: placeholder }
-      imageView.contentMode = UIViewContentModeScaleAspectFill
+      placeholder = UIImage.imageNamed("NewsPoster.png")
+      imageView.url             = { url: self.news.imageUrl, placeholder: placeholder }
+      imageView.contentMode     = UIViewContentModeScaleAspectFill
+      imageView.clipsToBounds  = true
       self.scrollView.addSubview(imageView)
     end
     
@@ -78,25 +57,48 @@ class DetailViewController < UIViewController
       self.scrollView.addSubview(imageView)
     end
     
+    self.shadowFromBottom = UIImageView.alloc.initWithFrame(CGRectZero).tap do |imageView|
+      imageView.image       = UIImage.imageNamed("News-Shadow-From-Bottom.png")
+      imageView.alpha       = 0.7
+      imageView.contentMode = UIViewContentModeScaleToFill
+      self.scrollView.addSubview(imageView)
+    end
+    
     self.headlineLabel = UILabel.alloc.init.tap do |label|
       label.text                    = self.news.title
       label.textColor               = UIColor.whiteColor
-      label.font                    = UIFont.boldSystemFontOfSize(16)
+      label.font                    = UIFont.boldSystemFontOfSize(26)
       label.userInteractionEnabled  = false
       self.scrollView.addSubview(label)
     end
     
-    self.closeButton = UIButton.alloc.initWithFrame(CGRectZero).tap do |button|
-      button.titleLabel.font = UIFont.systemFontOfSize(16)
-      button.setTitle("Close", forState:UIControlStateNormal)
-      button.addTarget(self, action:"hideDetailView:", forControlEvents:UIControlEventTouchUpInside)
+    self.bodyLabel = UITextView.alloc.init.tap do |label|
+      if self.news.body
+        options = {
+          NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+          NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding
+        }
+        bodyString = NSAttributedString.alloc.initWithData(("<html><meta charset='utf-8' />" + self.news.body + "</html>").dataUsingEncoding(NSUTF8StringEncoding), options:options, documentAttributes:nil, error:nil)
+        label.attributedText  = bodyString
+      else
+        label.text            = ""
+      end
       
-      button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight
-      button.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
-      
-      self.view.addSubview(button)
+      label.editable                = false
+      label.selectable              = true
+      label.textAlignment           = NSTextAlignmentLeft
+      label.textContainerInset      = UIEdgeInsetsMake(30, 20, 10, 20) # top, left, bottom, right
+      label.textColor               = UIColor.whiteColor
+      label.backgroundColor         = UIColor.blackColor
+      label.font                    = UIFont.systemFontOfSize(16)
+      label.userInteractionEnabled  = true
+      self.scrollView.addSubview(label)
     end
     
+  end
+  
+  def viewWillAppear(animated)
+    self.navigationController.setNavigationBarHidden(false, animated:animated)
   end
   
   def preferredStatusBarStyle
@@ -104,16 +106,15 @@ class DetailViewController < UIViewController
   end
   
   def viewWillLayoutSubviews
-    self.scrollView.frame     = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
-    self.heroView.frame       = CGRectMake(0, 0, self.view.frame.size.width, 240)
-    self.shadowFromTop.frame  = CGRectMake(0, 0, self.view.frame.size.width, 200)
-    self.mapView.frame        = CGRectMake(0, self.heroView.frame.size.height, self.view.frame.size.width, 140)
+    multiplicator = (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad ? 2 : 1)
     
-    self.headlineLabel.frame  = CGRectMake(20, 30, self.view.frame.size.width, 20)
-    self.closeButton.frame    = CGRectMake(self.view.frame.size.width-20-50, 30, 50, 20)
-  end
-  
-  def hideDetailView(sender)
-    self.dismissViewControllerAnimated(true, completion:lambda {})
+    self.scrollView.frame         = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
+    self.heroView.frame           = CGRectMake(0, 0, self.view.frame.size.width, 240 * multiplicator)
+    self.shadowFromTop.frame      = CGRectMake(0, 0, self.view.frame.size.width, 200)
+    self.shadowFromBottom.frame   = CGRectMake(0, self.heroView.frame.size.height / 2, self.view.frame.size.width, self.heroView.frame.size.height / 2)
+    self.mapView.frame            = CGRectMake(0, self.heroView.frame.size.height, self.view.frame.size.width, 140 * multiplicator)
+    
+    self.headlineLabel.frame      = CGRectMake(20, self.heroView.frame.size.height-40, self.view.frame.size.width-20-20, 30)
+    self.bodyLabel.frame          = CGRectMake(0, self.heroView.frame.size.height+self.mapView.frame.size.height, self.view.frame.size.width, 400)
   end
 end

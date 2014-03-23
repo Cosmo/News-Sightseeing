@@ -4,7 +4,8 @@ class AreaSectionViewCell < UITableViewCell
   attr_accessor :collectionView
   attr_accessor :data
   
-  attr_accessor :sectionLabel
+  # attr_accessor :shadowFromLeft
+  # attr_accessor :sectionLabel
   
   def initWithStyle(style, reuseIdentifier:reuseIdentifier)
     super
@@ -13,24 +14,19 @@ class AreaSectionViewCell < UITableViewCell
     
     layout = UICollectionViewFlowLayout.alloc.init
     layout.scrollDirection          = UICollectionViewScrollDirectionHorizontal
-    layout.sectionInset             = UIEdgeInsetsMake(10, 10, 0, 0) # top, left, bottom, right
+    layout.sectionInset             = UIEdgeInsetsMake(10, 10, 10, 10) # top, left, bottom, right
     layout.minimumInteritemSpacing  = 0.0
     layout.minimumLineSpacing       = 10.0
     
     
     self.collectionView = UICollectionView.alloc.initWithFrame(CGRectZero, collectionViewLayout:layout).tap do |collection|
+      collection.backgroundColor = UIColor.clearColor
       collection.registerClass(NewsViewCell, forCellWithReuseIdentifier:"NewsViewCell")
       collection.delegate   = self
       collection.dataSource = self
+      collection.directionalLockEnabled = false
       
       self.addSubview(collection)
-    end
-    
-    self.sectionLabel = UILabel.alloc.init.tap do |label|
-      label.textColor               = UIColor.whiteColor
-      label.font                    = UIFont.boldSystemFontOfSize(30)
-      label.userInteractionEnabled  = false
-      self.addSubview(label)
     end
     
     self
@@ -39,12 +35,11 @@ class AreaSectionViewCell < UITableViewCell
   def layoutSubviews
     super
     
-    self.sectionLabel.frame   = CGRectMake(30, self.frame.size.height-60, self.frame.size.width, 60)
     self.collectionView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
   end
   
   def collectionView(collectionView, layout:collectionViewLayout, sizeForItemAtIndexPath:indexPath)
-    CGSizeMake(self.size, self.frame.size.height-5-5)
+    CGSizeMake(self.size, self.frame.size.height-10-10)
   end
   
   def numberOfSectionsInCollectionView(collectionView)
@@ -59,15 +54,38 @@ class AreaSectionViewCell < UITableViewCell
     cell = collectionView.dequeueReusableCellWithReuseIdentifier("NewsViewCell", forIndexPath:indexPath)
     cell.headlineLabel.text = self.data[indexPath.row].title
     
-    placeholder = UIImage.imageNamed("Dummy-Images/News-Hero-#{rand(5)}.jpg")
+    placeholder = UIImage.imageNamed("NewsPoster.png")
     cell.heroView.url = { url: self.data[indexPath.row].imageUrl, placeholder: placeholder }
+    cell.sourceLogoView.image = self.data[indexPath.row].icon
+    
+    case self.size / (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad ? 2 : 1)
+    when 230
+      cell.headlineLabel.font = UIFont.boldSystemFontOfSize(22)
+    when 170
+      cell.headlineLabel.font = UIFont.boldSystemFontOfSize(20)
+    when 120
+      cell.headlineLabel.font = UIFont.boldSystemFontOfSize(18)
+    end
+    
+    if self.data[indexPath.row].id.match(/ad/)
+      cell.sponsoredLabel.text = "Sponsored"
+    else
+      cell.sponsoredLabel.text = ""
+    end
+    
+    # if self.size == (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad ? 2 : 1) * 230
+    #   cell.headlineLabel.font = UIFont.boldSystemFontOfSize(22)
+    # end
     
     cell
   end
   
+  
+  
   def collectionView(collectionView, didSelectItemAtIndexPath:indexPath)
-    # viewController = UINavigationController.alloc.initWithRootViewController(DetailViewController.alloc.init)
+    # viewController = MHDNavigationController.alloc.initWithRootViewController()
+    # self.navigationController.presentViewController(viewController, animated:true, completion:lambda { })
     viewController = DetailViewController.alloc.initWithNews(self.data[indexPath.row])
-    self.navigationController.presentViewController(viewController, animated:true, completion:lambda { })
+    self.navigationController.pushViewController(viewController, animated:true)
   end
 end
