@@ -84,6 +84,8 @@ class MainViewController < UIViewController # UITableViewController
             icon = UIImage.imageNamed("SourceLogos/storyful.png")
           elsif news["id"].match(/axelspringer/)
             icon = UIImage.imageNamed("SourceLogos/axelspringer.png")
+          elsif news["id"].match(/getty/)
+            icon = UIImage.imageNamed("SourceLogos/gettyimages.png")
           elsif news["id"].match(/bankomat/)
             icon = UIImage.imageNamed("SourceLogos/berlinermorgenpost.png")
           elsif news["id"].match(/ad/)
