@@ -12,8 +12,19 @@ Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   app.name = 'NewsSightseeing-iOS'
   
+  app.icons = [
+    "Icons/iPad.png",
+    "Icons/iPad@2x.png",
+    "Icons/iPhone.png",
+    "Icons/iPhone@2x.png"
+  ]
+  
   app.device_family = [:iphone, :ipad]
   app.frameworks << "MapKit"
+  
+  app.pods do
+    pod "PaperFold-pod", :git => "https://github.com/yestoall/PaperFold-pod.git"
+  end
   
   app.info_plist["UIViewControllerBasedStatusBarAppearance"] = false
   app.info_plist["UIStatusBarStyle"] = "UIStatusBarStyleBlackOpaque"

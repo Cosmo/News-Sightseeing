@@ -1,14 +1,37 @@
-class MainViewController < UITableViewController
+class MainViewController < UIViewController # UITableViewController
   attr_accessor :data
+  attr_accessor :tableView
+  attr_accessor :leftView
   
   def viewDidLoad
     super
     
-    self.view.backgroundColor       = UIColor.colorWithWhite(0.1, alpha:1.0)
+    paper = PaperFoldView.alloc.initWithFrame(CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height))
+    paper.backgroundColor   = UIColor.blackColor
+    paper.autoresizingMask  = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight
+    self.view.addSubview(paper)
     
-    self.tableView.delegate         = self
-    self.tableView.dataSource       = self
-    self.tableView.separatorStyle   = UITableViewCellSeparatorStyleNone
+    self.leftView = UIView.alloc.initWithFrame(CGRectMake(0, 0, 100, self.view.frame.size.height)).tap do |left|
+      left.backgroundColor      = UIColor.colorWithRed(255/255.0, green:203/255.0, blue:0/255.0, alpha:1.0)
+      # paper.leftFoldContentView = left
+      paper.setLeftFoldContentView(left, foldCount:3, pullFactor:1.0)
+    end
+    
+    self.tableView = UITableView.alloc.initWithFrame(CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)).tap do |center|
+      center.backgroundColor  = UIColor.blackColor
+      paper.centerContentView = center
+      center.delegate         = self
+      center.dataSource       = self
+    end
+    
+    paper.delegate                = self
+    paper.enableRightFoldDragging = false
+    # paper.paperFoldState          = PaperFoldStateLeftUnfolded
+    
+    self.view.backgroundColor             = UIColor.colorWithWhite(0.1, alpha:1.0)
+    self.tableView.delegate               = self
+    self.tableView.dataSource             = self
+    self.tableView.separatorStyle         = UITableViewCellSeparatorStyleNone
     
     self.data = []
     
@@ -26,7 +49,6 @@ class MainViewController < UITableViewController
   end
   
   def loadData
-    
     BW::HTTP.get("http://newssightseeing.cloudapp.net/api/discover/?lng=13.466630&lat=52.499850") do |response|
       json      = BW::JSON.parse(response.body.to_str)
       self.data = []
@@ -39,6 +61,8 @@ class MainViewController < UITableViewController
             icon = UIImage.imageNamed("SourceLogos/wikidata.png")
           elsif news["id"].match(/storyful/)
             icon = UIImage.imageNamed("SourceLogos/storyful.png")
+          elsif news["id"].match(/axelspringer/)
+            icon = UIImage.imageNamed("SourceLogos/axelspringer.png")
           elsif news["id"].match(/bankomat/)
             icon = UIImage.imageNamed("SourceLogos/berlinermorgenpost.png")
           else
@@ -97,9 +121,9 @@ class MainViewController < UITableViewController
     when 1
       160
     when 2
-      130
+      140
     else
-      100
+      140
     end
   end
   
@@ -111,11 +135,13 @@ class MainViewController < UITableViewController
     50
   end
   
+  
+  
   def tableView(tableView, viewForHeaderInSection:section)
     UIView.alloc.init.tap do |header|
       # header.backgroundColor = UIColor.blackColor
       UILabel.alloc.initWithFrame(CGRectMake(20, 10, self.view.frame.size.width, 40)).tap do |label|
-        label.text                    = self.data[section][:section].upcase
+        label.text                    = self.data[section][:section]
         label.textColor               = UIColor.colorWithRed(255/255.0, green:203/255.0, blue:0/255.0, alpha:1.0)
         label.font                    = UIFont.boldSystemFontOfSize(30)
         label.userInteractionEnabled  = false
