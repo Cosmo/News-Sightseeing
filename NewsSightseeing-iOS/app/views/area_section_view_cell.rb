@@ -67,6 +67,12 @@ class AreaSectionViewCell < UITableViewCell
       cell.headlineLabel.font = UIFont.boldSystemFontOfSize(18)
     end
     
+    if self.data[indexPath.row].id.match(/ad/)
+      cell.sponsoredLabel.text = "Sponsored"
+    else
+      cell.sponsoredLabel.text = ""
+    end
+    
     # if self.size == (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad ? 2 : 1) * 230
     #   cell.headlineLabel.font = UIFont.boldSystemFontOfSize(22)
     # end

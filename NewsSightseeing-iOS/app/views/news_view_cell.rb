@@ -4,6 +4,7 @@ class NewsViewCell < UICollectionViewCell
   attr_accessor :heroView
   attr_accessor :shadowFromTop
   attr_accessor :headlineLabel
+  attr_accessor :sponsoredLabel
   
   def initWithFrame(frame)
     super
@@ -39,6 +40,13 @@ class NewsViewCell < UICollectionViewCell
       self.addSubview(label)
     end
     
+    self.sponsoredLabel = UILabel.alloc.init.tap do |label|
+      label.textColor               = UIColor.whiteColor
+      label.font                    = UIFont.boldSystemFontOfSize(12)
+      label.backgroundColor         = UIColor.clearColor
+      self.addSubview(label)
+    end
+    
     self.sourceLogoView = UIImageView.alloc.initWithFrame(CGRectZero).tap do |imageView|
       imageView.contentMode = UIViewContentModeScaleAspectFill
       
@@ -56,6 +64,9 @@ class NewsViewCell < UICollectionViewCell
     self.heroView.frame       = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
     self.shadowFromTop.frame  = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height/2)
     self.headlineLabel.frame  = CGRectMake(10, 10, self.frame.size.width-20, self.frame.size.height - 50-10-10)
+    
+    self.sponsoredLabel.frame = CGRectMake(10, self.frame.size.height-40-10+20, self.frame.size.width-20-40, 20)
+    
     self.sourceLogoView.frame = CGRectMake(self.frame.size.width-40-10, self.frame.size.height-40-10, 40, 40)
   end
 end
