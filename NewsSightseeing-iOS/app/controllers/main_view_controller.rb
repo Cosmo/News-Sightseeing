@@ -34,7 +34,18 @@ class MainViewController < UITableViewController
       sections.each do |key, value|
         data = []
         json[key.to_s].each do |news|
-          data << News.new(:url => news["url"], :lat => news["location"][1], :lng => news["location"][0], :title => news["title"], :body => news["body"], :imageUrl => news["imageUrl"])
+          
+          if news["id"].match(/wikidata/)
+            icon = UIImage.imageNamed("SourceLogos/wikidata.png")
+          elsif news["id"].match(/storyful/)
+            icon = UIImage.imageNamed("SourceLogos/storyful.png")
+          elsif news["id"].match(/bankomat/)
+            icon = UIImage.imageNamed("SourceLogos/berlinermorgenpost.png")
+          else
+            icon = UIImage.imageNamed("SourceLogos/no.png")
+          end
+          
+          data << News.new(:url => news["url"], :lat => news["location"][1], :lng => news["location"][0], :title => news["title"], :body => news["body"], :imageUrl => news["imageUrl"], :icon => icon)
         end
         self.data << { section: value, data: data }
       end

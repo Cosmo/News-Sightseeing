@@ -1,5 +1,5 @@
 class News
-  PROPERTIES = [:url, :lat, :lng, :title, :body, :imageUrl]
+  PROPERTIES = [:url, :lat, :lng, :title, :body, :imageUrl, :icon]
   PROPERTIES.each { |property| attr_accessor property }
   
   def initialize(hash = {})

@@ -79,6 +79,7 @@ class AreaSectionViewCell < UITableViewCell
     
     placeholder = UIImage.imageNamed("NewsPoster.png")
     cell.heroView.url = { url: self.data[indexPath.row].imageUrl, placeholder: placeholder }
+    cell.sourceLogoView.image = self.data[indexPath.row].icon
     
     cell
   end
