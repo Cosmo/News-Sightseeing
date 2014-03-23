@@ -16,6 +16,9 @@ namespace NewsSightseeing.Web.Controllers
     using MongoDB.Bson;
     using MongoDB.Bson.Serialization;
     using MongoDB.Driver;
+    using MongoDB.Driver.Builders;
+
+    using NewsSightseeing.Data.Dto;
 
     public class DiscoverController : ApiController
     {
@@ -52,14 +55,14 @@ namespace NewsSightseeing.Web.Controllers
             string latString, 
             CultureInfo culture)
         {
-            var distance = 1.0d;
+            var distance = 2.0d;
             var maxDistanceString = (distance / EarthRadius).ToString(culture.NumberFormat);
 
             var jsonQuery = "{ 'location' : { $geoWithin : { $centerSphere : [ [ " + lngString + " , " + latString + " ] , " + maxDistanceString + " ] } } }";
 
             var doc = BsonSerializer.Deserialize<BsonDocument>(jsonQuery);
             var query = new QueryDocument(doc);
-            var results = articles.Find(query);
+            var results = articles.Find(query).SetSortOrder(new SortByBuilder().Descending("publishedAt")).SetLimit(50);
 
             var dtos = results.ToList().Select(ConvertArticleDtoToArticleWebDto());
 
@@ -72,8 +75,8 @@ namespace NewsSightseeing.Web.Controllers
             string latString,
             CultureInfo culture)
         {
-            var innerMaxDistance = 1.0d;
-            var outerMaxDistance = 3.0d;
+            var innerMaxDistance = 2.0d;
+            var outerMaxDistance = 4.0d;
 
             var innerMaxDistanceString = (innerMaxDistance / EarthRadius).ToString(culture.NumberFormat);
             var outerMaxDistanceString = (outerMaxDistance / EarthRadius).ToString(culture.NumberFormat);
@@ -85,7 +88,7 @@ namespace NewsSightseeing.Web.Controllers
 
             var doc = BsonSerializer.Deserialize<BsonDocument>(jsonQuery);
             var query = new QueryDocument(doc);
-            var results = articles.Find(query);
+            var results = articles.Find(query).SetSortOrder(new SortByBuilder().Descending("publishedAt")).SetLimit(50);
 
             var dtos = results.ToList().Select(ConvertArticleDtoToArticleWebDto());
 
@@ -111,7 +114,7 @@ namespace NewsSightseeing.Web.Controllers
 
             var doc = BsonSerializer.Deserialize<BsonDocument>(jsonQuery);
             var query = new QueryDocument(doc);
-            var results = articles.Find(query);
+            var results = articles.Find(query).SetSortOrder(new SortByBuilder().Descending("publishedAt")).SetLimit(50);
 
             var dtos = results.ToList().Select(ConvertArticleDtoToArticleWebDto());
 
@@ -124,7 +127,7 @@ namespace NewsSightseeing.Web.Controllers
             string latString,
             CultureInfo culture)
         {
-            var innerMaxDistance = 5.0d;
+            var innerMaxDistance = 6.0d;
             var outerMaxDistance = 50.0d;
 
             var innerMaxDistanceString = (innerMaxDistance / EarthRadius).ToString(culture.NumberFormat);
@@ -137,7 +140,7 @@ namespace NewsSightseeing.Web.Controllers
 
             var doc = BsonSerializer.Deserialize<BsonDocument>(jsonQuery);
             var query = new QueryDocument(doc);
-            var results = articles.Find(query);
+            var results = articles.Find(query).SetSortOrder(new SortByBuilder().Descending("publishedAt")).SetLimit(50);
 
             var dtos = results.ToList().Select(ConvertArticleDtoToArticleWebDto());
 

@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace NewsSightseeing.Web.Controllers
+namespace NewsSightseeing.Data.Dto
 {
     using MongoDB.Bson.Serialization.Attributes;
 

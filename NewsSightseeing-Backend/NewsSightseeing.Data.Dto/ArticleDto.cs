@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace NewsSightseeing.Web.Controllers
+namespace NewsSightseeing.Data.Dto
 {
     using System;
 
@@ -35,5 +35,11 @@ namespace NewsSightseeing.Web.Controllers
 
         [BsonElement("location")]
         public double[] Location { get; set; }
+
+        [BsonElement("event")]
+        public long Event { get; set; }
+
+        [BsonElement("person")]
+        public string Person { get; set; }
     }
 }

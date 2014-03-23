@@ -162,11 +162,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\ArticleDto.cs" />
     <Compile Include="Controllers\ArticleWebDto.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\DiscoverController.cs" />
-    <Compile Include="Controllers\LocationDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -216,7 +214,12 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\NewsSightseeing.Data.Dto\NewsSightseeing.Data.Dto.csproj">
+      <Project>{ADE9C178-2D73-45FD-9FF2-52AF32345174}</Project>
+      <Name>NewsSightseeing.Data.Dto</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
