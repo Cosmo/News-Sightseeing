@@ -71,7 +71,7 @@ def filter(id, threshold)
   return @filtered_ids[id] <= threshold
 end
 
-@locations = {}
+@locations = File.read("/tmp/locations.json").to_json()
 
 login
 puts "Credentials: #{@credentials.inspect}"
