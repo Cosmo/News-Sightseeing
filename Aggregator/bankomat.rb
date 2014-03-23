@@ -6,11 +6,12 @@ data['storymap']['slides'].each { |article|
     doc = {
       :_id => 'bankomat_' + article['date'],
       :url => "http://interaktiv.morgenpost.de/gesprengte-geldautomaten/",
-      :title => article['text']['headline'],
+      :title => "Geldautomatensprengung: " + article['text']['headline'].sub(/\d+\. /, ''),
       :body => article['text']['text'],
       :location => [article['location']['lon'], article['location']['lat']],
       :imageUrl => "http://interaktiv.morgenpost.de/gesprengte-geldautomaten/" + article['media']['url']
     }
+    
     match = /\d\d\.\d\d\.\d\d\d\d/.match(article['media']['caption'])
     if match then
       doc['publishedAt'] = DateTime.parse(match[0]).iso8601()

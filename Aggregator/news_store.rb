@@ -2,6 +2,7 @@ require 'mongo'
 require "json"
 require "net/http"
 require "date"
+require 'open-uri'
 
 include Mongo
 
@@ -25,9 +26,10 @@ module NewsStore
   
   def self.get(url)
     uri = URI.parse(url)
-    req = Net::HTTP::Get.new(uri)
-    res = Net::HTTP.start(uri.hostname, uri.port) { |http|
-      http.request(req)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true if uri.scheme == 'https'
+    res = http.start { |h|
+      h.request(Net::HTTP::Get.new(uri.request_uri))
     }
     body = res.body    
     JSON.parse(body)
