@@ -8,6 +8,8 @@ begin
 rescue LoadError
 end
 
+require 'bubble-wrap/location'
+
 Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   app.name = 'NewsSightseeing-iOS'
@@ -21,6 +23,7 @@ Motion::Project::App.setup do |app|
   
   app.device_family = [:iphone, :ipad]
   app.frameworks << "MapKit"
+  app.frameworks << "CoreLocation"
   
   app.pods do
     pod "PaperFold-pod", :git => "https://github.com/yestoall/PaperFold-pod.git"

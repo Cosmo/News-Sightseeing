@@ -3,6 +3,7 @@ class MainViewController < UIViewController # UITableViewController
   attr_accessor :timelineData
   attr_accessor :centerView
   attr_accessor :leftView
+  attr_accessor :location
   
   def viewDidLoad
     super
@@ -58,7 +59,11 @@ class MainViewController < UIViewController # UITableViewController
     
     self.centerView.registerClass(AreaSectionViewCell, forCellReuseIdentifier:"AreaSectionViewCell")
     
-    self.loadData
+    
+    BubbleWrap::Location.get do |result|
+      self.location = result[:to]
+      loadData
+    end
   end
   
   def preferredStatusBarStyle
@@ -70,7 +75,7 @@ class MainViewController < UIViewController # UITableViewController
   end
   
   def loadData
-    BW::HTTP.get("http://newssightseeing.cloudapp.net/api/discover/?lng=13.3949&lat=52.50524") do |response|
+    BW::HTTP.get("http://newssightseeing.cloudapp.net/api/discover/?lng=#{self.location.longitude.to_s}&lat=#{self.location.latitude.to_s}") do |response|
       json      = BW::JSON.parse(response.body.to_str)
       self.data = []
       sections  = { here: "Here", veryClose: "Close", aroundYou: "Around you", thisCity: "In this city" }
@@ -102,6 +107,8 @@ class MainViewController < UIViewController # UITableViewController
       
       self.centerView.reloadData
     end
+    
+    BubbleWrap::Location.stop
   end
   
   def numberOfSectionsInTableView(tableView)
