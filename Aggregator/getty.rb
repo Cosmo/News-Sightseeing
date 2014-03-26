@@ -71,13 +71,13 @@ def filter(id, threshold)
   return @filtered_ids[id] <= threshold
 end
 
-@locations = File.read("/tmp/locations.json").to_json()
+@locations = {} #File.read("var/locations.json").to_json()
 
 login
 puts "Credentials: #{@credentials.inspect}"
 i = 1
-while i < 350 do
-  images = search_for_images("Berlin", i)
+while i < 3500 do
+  images = search_for_images("Munich", i)
   image_id_list = images['SearchForImagesResult']['Images'].map{ |i| i['ImageId'] }
   puts "Found #{image_id_list.length} images"
   details = get_image_details(image_id_list)  
@@ -97,14 +97,14 @@ while i < 350 do
         doc[:person] = kw['Text']
       end
     }
-    img['Keywords'].each { |kw| 
-      if kw['Type'] == 'Location' and kw['Text'] != 'Ukraine' and kw['Text'] != 'Asia' and kw['Text'] != 'Europe' and kw['Text'] != 'Germany' and kw['Text'] != 'Berlin' then
+    img['Keywords'].each { |kw|
+      if kw['Type'] == 'Location' and kw['Text'] != 'Hannover' and kw['Text'] != 'Asia' and kw['Text'] != 'Europe' and kw['Text'] != 'Germany' and kw['Text'] != 'Munich' then
         if filter("#{doc[:event]}-#{doc[:person]}", 1) and filter("#{doc[:event]}", 4) then
           location = kw['Text']
           if @locations.has_key?(location) then
             loc = @locations[location]            
           else
-            query = URI::encode("#{location},Berlin")
+            query = URI::encode("#{location},Munich")
             places_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{query}&sensor=true&key=AIzaSyBLzJW7tQA7u8G0pZlUet_Mg2A7XEH3r6E"
             puts "Querying #{places_url}"
             data = NewsStore.get(places_url)
@@ -117,6 +117,7 @@ while i < 350 do
           end
           if loc then
             doc[:location] = loc
+            puts location
             puts doc
             puts
             NewsStore.save(doc)
@@ -128,6 +129,6 @@ while i < 350 do
   i += 75
 end
 
-File.open('/tmp/locations.json', "w") { |location_file|
+File.open('var/locations.json', "w") { |location_file|
   location_file.write(@locations.to_json)
 }

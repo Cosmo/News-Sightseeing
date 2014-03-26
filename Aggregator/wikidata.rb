@@ -1,6 +1,7 @@
 require './news_store'
 
-data = NewsStore.get("http://208.80.153.172/api?q=claim[131:64,1134:64]%20AND%20noclaim[31:313301,31:561431]%20AND%20claim[18]%20AND%20claim[625]")
+#data = NewsStore.get("http://208.80.153.172/api?q=claim[131:64,1134:64]%20AND%20noclaim[31:313301,31:561431]%20AND%20claim[18]%20AND%20claim[625]")
+data = NewsStore.get("http://208.80.153.172/api?q=claim[131:1726,1134:1726]%20AND%20noclaim[31:313301,31:561431]%20AND%20claim[18]%20AND%20claim[625]")
 puts "Found #{data['items'].length} items(s)"
 i = 0
 data['items'].each { |id| 
