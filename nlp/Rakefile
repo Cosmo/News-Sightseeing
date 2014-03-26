@@ -1,0 +1,29 @@
+require 'net/http'
+
+# Download models
+task :get_models do
+  server = "opennlp.sourceforge.net"
+  Net::HTTP.start(server) do |http|
+    ['en-token.bin', 'en-ner-person.bin'].each do |filename|
+      path = "/models-1.5/" + filename
+      print "Loading #{server}#{path} "
+      f = open(filename, "wb")
+      begin
+        http.request_get(path) do |resp|
+          i = 10
+          resp.read_body do |segment|
+            i -= 1
+            if i <= 0 then
+              print "."
+              i = 10
+            end
+            f.write(segment)
+          end
+        end
+      ensure
+        f.close()
+        puts
+      end
+    end
+  end
+end
