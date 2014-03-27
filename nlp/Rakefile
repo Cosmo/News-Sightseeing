@@ -43,4 +43,5 @@ end
 
 task :test do
   system("jruby extract.rb -t de-token.bin -f de-ner-location.bin polizei.txt")
+  system("jruby extract.rb -t de-token.bin -f de-ner-location.bin polizei-untrained.txt")
 end
