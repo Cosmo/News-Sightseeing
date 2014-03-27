@@ -1,0 +1,60 @@
+<START:miscellaneous> Räuberischer Diebstahl <END> eines Geldbeutels am U-Bahnhof <START:location> Odeonsplatz <END> - Altstadt
+
+Am Samstag , <START:date> 22.03.2014 <END> , gegen <START:time> 02.00 <END> Uhr , befand sich ein 27-jähriger Mechaniker mit seinem 23-jährigen Bekannten am U-Bahnhof <START:location> Odeonsplatz <END> . An die zwei näherte sich eine Gruppe von insgesamt sechs Personen . Eine männliche Person aus dieser Gruppierung nahm den Geldbeutel des 27-Jährigen aus seiner hinteren Hosentasche und als sich der Geschädigte sofort umdrehte und den Mann darauf ansprach , verneinte er die Wegnahme . Plötzlich kam ein weiterer junger Mann aus der Gruppierung heraus und nahm den Geschädigten in den „Schwitzkasten“. Hierbei verletzte er den 27-Jährigen leicht am Hals . Während dieser Auseinandersetzung wurde der 23-jährige Begleiter des Geschädigten von einer weiblichen Person , die ebenfalls aus der Gruppierung stammt, mit der Faust ins Gesicht geschlagen. Mit dem Geldbeutel flüchteten die sechs Personen unerkannt.
+
+Ein ehrlicher Finder , der den entwendeten Geldbeutel am <START:location> Odeonsplatz <END> gefunden hatte, gab ihn bei der <START:location> Polizeiinspektion 16 <END> ( <START:location> Hauptbahnhof <END> ) ab . Bargeld befand sich in diesem nicht mehr . 
+	
+1. Täter : Männlich , ca. 185 cm groß , dunkle kurze Haare , schlanke Figur ; dunkle Kleidung ,
+2. Täter : Weiblich , ca. 160 cm groß , ca 18 Jahre alt , schlank , helle Haut , mittelblonde , lockige , schulterlange Haare ,
+3. Täter : Männlich , ca. 170 cm groß , langes lockiges Haar , schlank , deutschsprachig ; helle Jacke .
+
+Zeugenaufruf :
+Personen , die sachdienliche Hinweise geben können , werden gebeten , sich mit dem Polizeipräsidium <START:location> München  <END> , Kommissariat 61 , Tel. 089/2910-0 , oder jeder anderen Polizeidienststelle in Verbindung zu setzen .
+
+
+
+<START:miscellaneous> Versuchter Diebstahl <END> eines Kraftwagens sowie Diebstahl von zwei Feuerlöschern mittels AFIS geklärt - <START:location> Freimann <END>
+
+In der Nacht vom 21. auf den <START:date> 22.02.2009 <END> wurden aus der Tiefgarage eines Wohnobjektes in der <START:location> Freisinger Landstraße <END> zwei Feuerlöscher entwendet . Zur selben Zeit versuchte der damals noch unbekannte Täter einen Alfa Romeo zu entwenden . Hierzu schob er das Verdeck des Cabriolets zurück und versuchte das Fahrzeug kurz zu schließen . Da zu diesem Zeitpunkt keine Batterie in dem Fahrzeug war , gelang ihm das Vorhaben nicht . Am Pkw ist bei dem Diebstahlsversuch kein Schaden entstanden .
+
+Bei diesem Versuch hat der mittlerweile 20-jährige Täter Fingerabdruckspuren am Tatort hinterlassen . Diese daktyloskopischen Spuren konnten vom <START:organization> Bayerischen Landeskriminalamt <END> nun einem 20-jährigen Arbeitssuchenden nachgewiesen werden .
+
+
+
+<START:miscellaneous> Raubüberfall <END> auf Schmuckgeschäft in Münchner Innenstadt
+–siehe Pressebericht vom <START:date> 25.02.2014 <END> , Ziffer 293
+
+Wie bereits mehrfach berichtet , wurde am <START:date> 12.02.2014 <END> , gegen <START:time> 11.00 <END> Uhr , ein schwerer Raub zum Nachteil eines Münchner Schmuckgeschäftes in der <START:location> Maximilianstraße <END> verübt . Im Rahmen der Sofortfahndung wurden in Tatortnähe vier Personen festgenommen , die keinerlei Ausweispapiere mitführten und angaben , zwischen 14 und 16 Jahre alt zu sein .
+
+Zwischenzeitlich ist es dem <START:organization> Kommissariat 33 <END> aufgrund umfangreicher Ermittlungen gelungen , die Identität der Tatverdächtigen zu klären . Demnach handelt es sich um vier Rumänen , die zur Tatzeit 17 bis 21 Jahre alt waren .
+
+
+
+Großkalibriges Geschoss durchschlägt das Dach eines Fahrzeugs auf der <START:location> BAB A 94 <END> fahrenden Pkw - <START:location> Riem <END>
+
+Ein 67-jähriger Pharmareferent fuhr am Donnerstag , <START:date> 20.03.2014 <END> , in der Zeit zwischen <START:time> 13.30 <END> Uhr bis <START:time> 14.00 <END> Uhr , mit seinem Hyundai auf der <START:location> BAB A 94 <END> in Richtung <START:location> Passau <END> . Er fuhr mit einer Geschwindigkeit von ca. 150 km/h . Auf Höhe der <START:location> Messestadt Riem <END> vernahm er einen Schlag , welchen er als Steinschlag interpretierte .
+
+Am Abend des nächsten Tages stellte er fest , dass es sich nicht um einen Steinschlag , sondern um ein Einschussloch am Dach seines Pkws handelt . Daraufhin fuhr er am Folgetag zur Polizei und erstattete Anzeige . Bei dem Einschussloch handelt es sich um eine 2 x 3 Zentimeter große Eindringfläche auf Höhe des Fahrersitzes . Teile des Pojektils steckten im Fahrzeughimmel und in der Rücksitzbank . Der 67-Jährige befand sich auf der Fahrt alleine im Hyundai und wurde nicht verletzt .
+
+Der Schaden am Pkw beträgt ca. <START:money> 5.000 Euro <END> .
+
+Zeugenaufruf :
+
+Wer hat am Donnerstag , <START:date> 20.03.2014 <END> , in der Zeit zw. <START:time> 13.30 <END>  Uhr und <START:time> 14.00 Uhr <END> , im Bereich der <START:location> BAB A 94 <END> , zwischen den Anschlussstellen <START:location> München <END> - <START:location> Am Moosfeld <END> und <START:location> München <END> - <START:location> Feldkirchen West <END> , verdächtige Wahrnehmungen gemacht , welche in Verbindung mit einer Schussabgabe stehen könnten .
+
+Hinweise bitte an das PP München , <START:organization> Kommissariat 13 <END> , Tel . 089/2910-0 , oder jede andere Polizeidienststelle .
+
+
+
+Glück im Unglück hatte ein 23-jähriger Fahrer eines Kleintransporters , er fuhr auf einen stehenden Sattelzug auf und wurde nur leicht verletzt - <START:location> Haar <END>
+
+Am Dienstag , <START:date> 25.03.2014 <END> , stellte ein 46-jähriger Kraftfahrer seinen Mercedes Lkw mit Auflieger an der <START:location> Münchner Straße <END> , kurz nach der Einmündung <START:location> Salzweg <END> , in zweiter Reihe ab , um an der dortigen Baustelle anzuliefern . Gegen <START:time> 11.20 <END> Uhr fuhr ein 23-Jähriger mit seinem Ford Transit die <START:location> Münchner Straße <END> von <START:location> Haar <END> in Richtung <START:location> München <END> . Aus Unachtsamkeit übersah er den in zweiter Reihe stehenden Sattelzug . Trotz versuchtem Ausweichmanöver auf die linke Fahrspur prallte er mit voller Wucht in das linke Heck des Aufliegers , welches sich tief in die Beifahrerseite bohrte . Zum Glück befand sich kein Beifahrer im Ford Transit .
+
+Der 23-Jährige kam mit dem Rettungsdienst zur ambulanten Behandlung in ein Krankenhaus . Er klagte letztendlich über Bauchschmerzen .
+
+Am Ford Transit entstand Totalschaden in Höhe von ca. <START:money> 10.000 Euro <END> . Der Auflieger wurde nur leicht beschädigt und die Schadenssumme wird auf ca. <START:money> 2.000 Euro <END> geschätzt .
+
+Die <START:location> Münchner Straße <END> war für die Dauer der Unfallaufnahme einseitig komplett gesperrt . Durch eine Verkehrsumleitung kam es lediglich zu geringen Verkehrsstörungen .
+
+
+

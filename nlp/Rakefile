@@ -1,29 +1,46 @@
 require 'net/http'
+require 'pathname'
+
+task :default => [:get_models]
 
 # Download models
 task :get_models do
   server = "opennlp.sourceforge.net"
   Net::HTTP.start(server) do |http|
-    ['en-token.bin', 'en-ner-person.bin'].each do |filename|
-      path = "/models-1.5/" + filename
-      print "Loading #{server}#{path} "
-      f = open(filename, "wb")
-      begin
-        http.request_get(path) do |resp|
-          i = 10
-          resp.read_body do |segment|
-            i -= 1
-            if i <= 0 then
-              print "."
-              i = 10
+    ['de-token.bin', 'en-token.bin', 'en-ner-person.bin'].each do |filename|
+      if not Pathname.new(filename).exist? then
+        path = "/models-1.5/" + filename
+        print "Loading #{server}#{path} "
+        f = open(filename, "wb")
+        begin
+          http.request_get(path) do |resp|
+            i = 10
+            resp.read_body do |segment|
+              i -= 1
+              if i <= 0 then
+                print "."
+                i = 10
+              end
+              f.write(segment)
             end
-            f.write(segment)
           end
+        ensure
+          f.close()
+          puts
         end
-      ensure
-        f.close()
-        puts
       end
     end
   end
+end
+
+task :tokenize do
+  system("opennlp TokenizerME de-token.bin")
+end
+
+task :train do
+  system("opennlp TokenNameFinderTrainer -model de-ner-location.bin -lang de -data polizei-train.txt -encoding UTF-8")
+end
+
+task :test do
+  system("jruby extract.rb -t de-token.bin -f de-ner-location.bin polizei.txt")
 end
