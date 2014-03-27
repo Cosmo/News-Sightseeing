@@ -1,6 +1,12 @@
 require './news_store'
 
-data = NewsStore.get("http://api.mh.storyful.com/tags/berlin/stories?access_token=f90c68293243a072ddbfb5256553f60b&limit=100")
+tag = NewsStore::config['storyful']['tag']
+url = "http://api.storyful.com/tags/#{tag}/stories?limit=100"
+if NewsStore::config['storyful']['access_token'] then
+  url += "&access_token=" + NewsStore::config['storyful']['access_token']
+end
+puts "Retrieving stories for tag #{tag}..."
+data = NewsStore.get(url)
 puts "Found #{data['total_items']} storie(s)"
 i = 0
 data['tag']['stories'].each { |article| 

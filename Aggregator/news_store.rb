@@ -3,15 +3,19 @@ require "json"
 require "net/http"
 require "date"
 require 'open-uri'
+require 'yaml'
 
 include Mongo
 
 module NewsStore
+  extend self
+  @config = YAML::load_file('config.yaml')
+  attr_reader :config
 
   # connecting to the database
-  @client = MongoClient.new('ds031088.mongolab.com', 31088)
+  @client = MongoClient.new(@config['mongodb']['host'], @config['mongodb']['port'])
   @db     = @client['newssightseeing']
-  @db.authenticate('newssightseeing', 'XIj3lGlApxQsA4KdsDKbT4RAaB2Psk8Lvmfb0LbA.IQ-')
+  @db.authenticate(@config['mongodb']['user'], @config['mongodb']['password'])
   @coll   = @db['articles']
 
   # inserting documents

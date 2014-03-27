@@ -4,8 +4,8 @@ require "net/https"
 require 'date'
 require './news_store'
 
-@client_id      = "fgdrfzcdtypgzdbrf9draghx"
-@client_secret  = "gvCCa75Ev2Uk4rfJzRcwv3ubjUaZBVsu86SuSkzHTfJFG"
+@client_id      = NewsStore::config['getty']['client_id']
+@client_secret  = NewsStore::config['getty']['client_secret']
 @credentials    = nil
 
 def login
@@ -76,7 +76,7 @@ end
 login
 puts "Credentials: #{@credentials.inspect}"
 i = 1
-while i < 3500 do
+while i < 350 do
   images = search_for_images("Munich", i)
   image_id_list = images['SearchForImagesResult']['Images'].map{ |i| i['ImageId'] }
   puts "Found #{image_id_list.length} images"
@@ -105,7 +105,7 @@ while i < 3500 do
             loc = @locations[location]            
           else
             query = URI::encode("#{location},Munich")
-            places_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{query}&sensor=true&key=AIzaSyBLzJW7tQA7u8G0pZlUet_Mg2A7XEH3r6E"
+            places_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=#{query}&sensor=true&key=#{NewsStore::config['google']['spaces_key']}"
             puts "Querying #{places_url}"
             data = NewsStore.get(places_url)
             if data['results'] and data['results'][0] then
