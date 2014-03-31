@@ -10,14 +10,32 @@
     <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
     <style type="text/css">
-        #map { height: 800px }
+        body {
+            height: 100%
+        }
+        #map {
+            height: 1100px;
+        }
         .legend {
-            position: absolute; top: 0; right: 0; width: 250px; height: 700px;
-            overflow-y: scroll;
-            background-color: #000; opacity: 0.8; color: #fff;
+            position: absolute; top: 5px; right: 5px; width: 250px; height: 700px;
+            background-color: #fff; opacity: 0.8; color: #000;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px;        
         }
         .legend img {
-            width: 256px;
+            width: 223px;
+            margin-bottom: 8px;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px;
+        }
+        .legend .panel-body {
+            overflow-y: scroll;
+            height: 550px;
+        }
+        .list-group {
+            overflow-x: scroll;
         }
     </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,10 +47,16 @@
   </head>
   <body>
     <div id="map"></div>
-    <div class="legend">
-        <a id="url"><img id="image"></a>
-        <p id="text"></p>
-        <p id="source"></p>
+    <div class="legend panel panel-primary">
+        <div id="title" class="panel-heading">Panel heading without title</div>
+        <div class="panel-body">
+            <a id="url"><img id="image"></a>
+            <p id="text"></p>
+        </div>
+        <ul class="list-group">
+            <li id="source" class="list-group-item"></li>
+            <li id="published-at" class="list-group-item"></li>
+        </ul>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -45,6 +69,38 @@
             zoom: 14
         });
         layer.on('ready', function() {
+            var icons = {};
+            icons['getty'] = L.mapbox.marker.icon({
+                'marker-icon': 'car',
+                'marker-color': '#f08',
+                'marker-size': 'medium'
+            });
+            icons['getty'].options.iconUrl = 'https://api.tiles.mapbox.com/v3/marker/pin-m-g+88f@2x.png';
+            icons['wikidata'] = L.mapbox.marker.icon({
+                'marker-color': '#0f0',
+                'marker-size': 'medium'
+            });
+            icons['wikidata'].options.iconUrl = 'https://api.tiles.mapbox.com/v3/marker/pin-m-w+808@2x.png';
+            icons['axelspringer'] = L.mapbox.marker.icon({
+                'marker-color': '#00f',
+                'marker-size': 'medium'
+            });
+            icons['axelspringer'].options.iconUrl = 'https://api.tiles.mapbox.com/v3/marker/pin-m-a+80f@2x.png';
+            icons['bankomat'] = L.mapbox.marker.icon({
+                'marker-color': '#0ff',
+                'marker-size': 'medium'
+            });
+            icons['bankomat'].options.iconUrl = 'https://api.tiles.mapbox.com/v3/marker/pin-m-b+0ff@2x.png';
+            icons['storyful'] = L.mapbox.marker.icon({
+                'marker-color': '#ff0',
+                'marker-size': 'medium'
+            });
+            icons['storyful'].options.iconUrl = 'https://api.tiles.mapbox.com/v3/marker/pin-m-s+ff0@2x.png';
+            icons['ad'] = L.mapbox.marker.icon({
+                'marker-color': '#f0f',
+                'marker-size': 'medium'
+            });
+            icons['ad'].options.iconUrl = 'https://api.tiles.mapbox.com/v3/marker/pin-m-circle+f0f@2x.png';
             $.ajax({
                 dataType: "json",
                 //url: "http://newssightseeing.cloudapp.net/api/discover/?lng=11.551332&lat=48.100647&distance=3",
@@ -55,13 +111,17 @@
                         var loc = news.location.reverse();
                         loc[0] += Math.random() * 0.001 - 0.0005;
                         loc[1] += Math.random() * 0.001 - 0.0005;
+                        var icon = icons[news.id.split('_')[0]];
                         var marker = L.marker(loc, {
+                            icon: icon,
                             title: news.title,
                             clickable: true,
                         });
                         marker.addEventListener('mouseover', function() {
                             $('#url').attr('href', news.url);
                             $('#image').attr('src', news.imageUrl);
+                            $('#title').html(news.title);
+                            $('#published-at').html(news.publishedAt);
                             $('#text').html(news.body);
                             $('#source').html(news.id);
                         }, false);
