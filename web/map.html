@@ -71,36 +71,35 @@
         layer.on('ready', function() {
             var icons = {};
             icons['getty'] = L.mapbox.marker.icon({
-                'marker-icon': 'car',
-                'marker-color': '#f08',
+                'marker-symbol': 'g',
+                'marker-color': '#88f',
                 'marker-size': 'medium'
             });
-            icons['getty'].options.iconUrl = 'https://api.tiles.mapbox.com/v3/marker/pin-m-g+88f@2x.png';
             icons['wikidata'] = L.mapbox.marker.icon({
-                'marker-color': '#0f0',
+                'marker-symbol': 'w',
+                'marker-color': '#808',
                 'marker-size': 'medium'
             });
-            icons['wikidata'].options.iconUrl = 'https://api.tiles.mapbox.com/v3/marker/pin-m-w+808@2x.png';
             icons['axelspringer'] = L.mapbox.marker.icon({
-                'marker-color': '#00f',
+                'marker-symbol': 'a',
+                'marker-color': '#80f',
                 'marker-size': 'medium'
             });
-            icons['axelspringer'].options.iconUrl = 'https://api.tiles.mapbox.com/v3/marker/pin-m-a+80f@2x.png';
             icons['bankomat'] = L.mapbox.marker.icon({
+                'marker-symbol': 'b',
                 'marker-color': '#0ff',
                 'marker-size': 'medium'
             });
-            icons['bankomat'].options.iconUrl = 'https://api.tiles.mapbox.com/v3/marker/pin-m-b+0ff@2x.png';
             icons['storyful'] = L.mapbox.marker.icon({
+                'marker-symbol': 's',
                 'marker-color': '#ff0',
                 'marker-size': 'medium'
             });
-            icons['storyful'].options.iconUrl = 'https://api.tiles.mapbox.com/v3/marker/pin-m-s+ff0@2x.png';
             icons['ad'] = L.mapbox.marker.icon({
+                'marker-symbol': 'square',
                 'marker-color': '#f0f',
                 'marker-size': 'medium'
             });
-            icons['ad'].options.iconUrl = 'https://api.tiles.mapbox.com/v3/marker/pin-m-circle+f0f@2x.png';
             $.ajax({
                 dataType: "json",
                 //url: "http://newssightseeing.cloudapp.net/api/discover/?lng=11.551332&lat=48.100647&distance=3",
