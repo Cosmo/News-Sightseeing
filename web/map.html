@@ -10,32 +10,43 @@
     <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
     <style type="text/css">
+        html {
+            height: 100%
+        }
         body {
             height: 100%
         }
         #map {
-            height: 1100px;
+            height: 100%;
         }
-        .legend {
+        #legend {
             position: absolute; top: 5px; right: 5px; width: 250px; height: 700px;
             background-color: #fff; opacity: 0.8; color: #000;
             -webkit-border-radius: 6px;
             -moz-border-radius: 6px;
             border-radius: 6px;        
         }
-        .legend img {
+        #legend img {
             width: 223px;
             margin-bottom: 8px;
             -webkit-border-radius: 6px;
             -moz-border-radius: 6px;
             border-radius: 6px;
         }
-        .legend .panel-body {
+        #legend .panel-body {
             overflow-y: scroll;
             height: 550px;
         }
         .list-group {
             overflow-x: scroll;
+        }
+        #city {
+            padding-top: 5px; padding-left: 5px;
+            position: absolute; bottom: 5px; left: 5px; width: 250px; height: 50px;
+            background-color: #fff; opacity: 0.8; color: #000;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px;        
         }
     </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -47,7 +58,7 @@
   </head>
   <body>
     <div id="map"></div>
-    <div class="legend panel panel-primary">
+    <div id="legend" class="panel panel-primary">
         <div id="title" class="panel-heading">Panel heading without title</div>
         <div class="panel-body">
             <a id="url"><img id="image"></a>
@@ -57,6 +68,13 @@
             <li id="source" class="list-group-item"></li>
             <li id="published-at" class="list-group-item"></li>
         </ul>
+    </div>
+    <div id="city" class="panel panel-primary">
+        <div class="btn-group">
+          <button id="button_munich"    type="button" class="btn btn-default">München</button>
+          <button id="button_berlin"    type="button" class="btn btn-default">Berlin</button>
+          <button id="button_frankfurt" type="button" class="btn btn-default">Frankfurt</button>
+        </div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -68,7 +86,10 @@
             center: [48.134, 11.574],
             zoom: 14
         });
+        
         layer.on('ready', function() {
+            
+            // Setup icons for map
             var icons = {};
             icons['getty'] = L.mapbox.marker.icon({
                 'marker-symbol': 'g',
@@ -87,19 +108,21 @@
             });
             icons['bankomat'] = L.mapbox.marker.icon({
                 'marker-symbol': 'b',
-                'marker-color': '#0ff',
+                'marker-color': '#008',
                 'marker-size': 'medium'
             });
             icons['storyful'] = L.mapbox.marker.icon({
                 'marker-symbol': 's',
-                'marker-color': '#ff0',
+                'marker-color': '#f80',
                 'marker-size': 'medium'
             });
             icons['ad'] = L.mapbox.marker.icon({
                 'marker-symbol': 'square',
-                'marker-color': '#f0f',
+                'marker-color': '#ff0',
                 'marker-size': 'medium'
             });
+            
+            // Retrieve news items
             $.ajax({
                 dataType: "json",
                 //url: "http://newssightseeing.cloudapp.net/api/discover/?lng=11.551332&lat=48.100647&distance=3",
@@ -131,7 +154,19 @@
                     }
                 }
             });
+            
+            // Adding handlers for buttons
+            $('#button_munich').click(function() {
+               layer.setView([48.134, 11.574], 12); 
+            });
+            $('#button_berlin').click(function() {
+               layer.setView([52.5075419, 13.4261419], 12); 
+            });
+            $('#button_frankfurt').click(function() {
+               layer.setView([50.121212, 8.6365638], 12);
+            });
         });
+        
         layer.on('error', function(err) {
             // Handle error
         });
