@@ -7,6 +7,7 @@
     <title>News-Sightseeing Map</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
     <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
     <style type="text/css">
@@ -42,11 +43,22 @@
         }
         #city {
             padding-top: 5px; padding-left: 5px;
-            position: absolute; bottom: 5px; left: 5px; width: 250px; height: 50px;
+            // width: 540px;
+            position: absolute; bottom: 5px; left: 5px; width: 90px; height: 50px;
             background-color: #fff; opacity: 0.8; color: #000;
             -webkit-border-radius: 6px;
             -moz-border-radius: 6px;
             border-radius: 6px;        
+        }
+        a[data-selected="true"] .badge {
+            background-color: #000;
+        }
+        form .input-group {
+            width: 210px;
+            float: left;
+        }
+        .input-group .form-control {
+            width: 150px;
         }
     </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -69,15 +81,44 @@
             <li id="published-at" class="list-group-item"></li>
         </ul>
     </div>
+    <form>
     <div id="city" class="panel panel-primary">
-        <div class="btn-group">
-          <button id="button_munich"    type="button" class="btn btn-default">München</button>
-          <button id="button_berlin"    type="button" class="btn btn-default">Berlin</button>
-          <button id="button_frankfurt" type="button" class="btn btn-default">Frankfurt</button>
+        <div class="btn-group dropup">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Menu <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a id="button_munich" href="#">München</a></li>
+            <li><a id="button_berlin" href="#">Berlin</a></li>
+            <li><a id="button_frankfurt" href="#">Frankfurt</a></li>
+            <li class="divider"></li>
+            <li><a href="#" data-selected="true" data-source="getty">getty images <span class="badge pull-right">43</span></a></li>
+            <li><a href="#" data-selected="true" data-source="wikidata">Wikidata <span class="badge pull-right">42</span></a></li>
+            <li><a href="#" data-selected="true" data-source="axelspringer">axel springer <span class="badge pull-right">44</span></a></li>
+            <li><a href="#" data-selected="true" data-source="bankomat">Bankomat <span class="badge pull-right">43</span></a></li>
+            <li><a href="#" data-selected="true" data-source="storyful">storyful <span class="badge pull-right">43</span></a></li>
+            <li><a href="#" data-selected="true" data-source="ad">ad <span class="badge pull-right">43</span></a></li>
+          </ul>
         </div>
+        <!--div class="btn-group">
+            <div class="input-group">
+              <span class="input-group-addon">from</span>
+              <input type="text" class="form-control datepicker" placeholder="25.03.2014 08:00">
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon">to</span>
+              <input type="text" class="form-control datepicker" placeholder="01.04.2014 18:00">
+              <span class="input-group-btn">
+                <button id="btn_filter" class="btn btn-default" type="button">Go!</button>
+              </span>
+            </div>
+        </div-->
     </div>
+   </form>
+    
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script>
@@ -88,6 +129,10 @@
         });
         
         layer.on('ready', function() {
+            var markers = [];
+            var news_count = {
+                getty: 0, wikidata: 0, axelspringer:0, bankomat: 0, storyful: 0 , ad: 0
+            };
             
             // Setup icons for map
             var icons = {};
@@ -133,7 +178,8 @@
                         var loc = news.location.reverse();
                         loc[0] += Math.random() * 0.001 - 0.0005;
                         loc[1] += Math.random() * 0.001 - 0.0005;
-                        var icon = icons[news.id.split('_')[0]];
+                        var source = news.id.split('_')[0];
+                        var icon = icons[source];
                         var marker = L.marker(loc, {
                             icon: icon,
                             title: news.title,
@@ -148,10 +194,26 @@
                             $('#source').html(news.id);
                         }, false);
                         marker.addTo(layer);
+                        markers.push({
+                            marker: marker,
+                            id: news.id,
+                            visible: true,
+                            source: source
+                        });
+                        news_count[source] = news_count[source] + 1;
                     };
                     for(cat in data) {
                         data[cat].forEach(setMarker);
                     }
+                    
+                    // Put news count in menu badges
+                    $("a[data-source]").each(function(i, el) {
+                        var source = $(el).attr('data-source');
+                        console.log([source, news_count[source]]);
+                        $(el).find(".badge").html(news_count[source]);
+                    });
+                    
+                    $('.datepicker').datepicker();
                 }
             });
             
@@ -164,6 +226,28 @@
             });
             $('#button_frankfurt').click(function() {
                layer.setView([50.121212, 8.6365638], 12);
+            });
+            
+            // Buttons to select the source
+            $("a[data-source]").click(function(cb) {
+                var source = $(cb.target).attr('data-source');
+                var make_visible = $(cb.target).attr('data-selected') !== 'true';
+                $(cb.target).attr('data-selected', make_visible.toString());
+                markers.forEach(function(m) {
+                    if(m.source === source) {
+                        if(make_visible && !m.visible) {
+                            m.marker.addTo(layer);
+                            m.visible = true;
+                        } else if(!make_visible && m.visible) {
+                            layer.removeLayer(m.marker);
+                            m.visible = false;
+                        }
+                    }
+                });
+            });
+            
+            $('#btn_filter').click(function() {
+                // TODO
             });
         });
         
